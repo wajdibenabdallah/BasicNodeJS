@@ -14,7 +14,6 @@
     "method-override": "^1.0.2",
     "mongoose": "4.10.8",
     "morgan": "^1.8.2",
-    "nodemon": "^1.11.0",
     "passport": "^0.1.18",
     "passport-local": "^0.1.6"
   },
