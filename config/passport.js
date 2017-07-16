@@ -34,6 +34,15 @@ module.exports = function (passport) {
                     if (user) {
                         return done(null, false, req.flash('message', 'That username is already taken.'));
                     } else {
+                        var data = {
+                            username: username,
+                            email: req.body.emailr,
+                            pass1: password,
+                            pass2: req.body.confirmpassword
+                        }
+                        console.dir(data);
+                        validateData(data, done);
+
                         // if there is no user with that email
                         // create the user
                         var newUser = new User();
@@ -81,3 +90,16 @@ module.exports = function (passport) {
 
         }));
 };
+
+function validateData(data, done) {
+
+    //Rule 1 : username length > 5
+    if (data.username.length < 6)
+        return done(null, false, req.flash('message', 'Username invalid : At least 6 characters'));
+    //Rule 2 : password length > 5
+    if (data.pass1.length < 6)
+        return done(null, false, req.flash('message', 'Password invalid : At least 6 characters'));
+    //Rule 2 : password length > 5
+    if (data.pass2 != data.pass1)
+        return done(null, false, req.flash('message', 'Passwords invalid : passwords do not match'));
+}

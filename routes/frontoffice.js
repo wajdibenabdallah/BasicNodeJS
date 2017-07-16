@@ -1,10 +1,8 @@
 module.exports = function (router, passport) {
 
     router.get('/', function (req, res) {
-        //------------------------------------------------------------------
-        var sessions = req.sessionStore.sessions;
-        var message = getMessage(sessions);
-        //------------------------------------------------------------------
+        var message = getMessage(req.sessionStore.sessions);
+        //var message = req.flash('message'); express 3.0
         res.render('index', {message: message});
     });
 
