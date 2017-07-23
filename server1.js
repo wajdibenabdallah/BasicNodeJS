@@ -1,23 +1,24 @@
-//Modules
-var express = require('express');
-var path = require('path');
-var ejs = require('ejs');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash = require('connect-flash');
-var configDB = require('./config/database.js');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
+var express = require('express')
+    , app = express(app)
+    , path = require('path')
+    , favicon = require('serve-favicon')
+    , logger = require('morgan')
+    , cookieParser = require('cookie-parser')
+    , bodyParser = require('body-parser')
+    , passport = require('passport')
+    , session = require('express-session')
+    , flash = require('connect-flash')
+    , mongoose = require('mongoose')
+    , logger = require('morgan');
 
-require('./config/passport')(passport);     // pass passport for configuration
+// pass passport for configuration
+require('./config/passport')(passport);
 
 //Constants
 const PORT = 3000;
 
 //DataBase
-var mongoose = require('mongoose');
+var configDB = require('./config/database');
 mongoose.Promise = global.Promise;
 mongoose.connect(configDB.url);
 var db = mongoose.connection;
@@ -27,11 +28,11 @@ db.once('open', function () {
 });
 
 //Configurations
-var server = express();
+var server = express(server);
 server.set('view engine', 'ejs');
 server.use('/', express.static(path.join(__dirname, 'public')));
 server.use(bodyParser.urlencoded({extended: false}));
-server.use(morgan('dev'));
+server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(session({
@@ -39,15 +40,17 @@ server.use(session({
     resave: true,
     saveUninitialized: true,
     cookie: {
-        secure: true,
+        secure: false,
         maxAge: 2 * 60 * 60 * 1000 // 2 hours
     }
 }));
+
 server.use(passport.initialize());
+server.use(passport.session());
 server.use(flash());
 
 //Routes
-var routing = require('./routes/frontoffice')(express.Router(), passport);
+var routing = require('./routes/frontoffice')(passport);
 server.use('/', routing);
 
 server.listen(PORT, function () {
