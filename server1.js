@@ -1,7 +1,5 @@
 var express = require('express')
-    , app = express(app)
     , path = require('path')
-    , favicon = require('serve-favicon')
     , logger = require('morgan')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')
@@ -30,9 +28,10 @@ db.once('open', function () {
 //Configurations
 var server = express(server);
 server.set('view engine', 'ejs');
+server.engine('ejs', require('express-ejs-extend')); // add this line
 server.use('/', express.static(path.join(__dirname, 'public')));
 server.use(bodyParser.urlencoded({extended: false}));
-server.use(logger('dev'));
+//server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(session({

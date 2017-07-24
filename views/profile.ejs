@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <%# EJS Training %>
-    <title>Hello</title>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/index.js"></script>
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="/img/icon_app.ico" type="image/x-icon">
-</head>
-<body>
-<div class="container">
-    Welcome To my profile
+<% extend('base') %>
+<div class="profileContainer">
+    Hello
 </div>
-</body>
-</html>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var navBar = $("#bs-example-navbar-collapse-1");
+        navBar.html("<ul class='nav navbar-nav navbar-right'>" +
+        "<li class='hidden'><a href='#page-top'></a></li>" +
+        "<li class='page-scroll' id='navAuth'><a href='/logout'>Logout</a></li>" +
+        "</ul>");
+    });
+</script>

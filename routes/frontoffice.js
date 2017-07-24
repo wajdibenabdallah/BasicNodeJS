@@ -5,8 +5,7 @@ module.exports = function (passport) {
 
     router.get('/', function (req, res) {
         var message = req.flash('message');
-        //var message = getMessage(req.sessionStore.sessions);
-        res.render('base', {message: message});
+        res.render('index', {message: message});
     });
 
     router.post('/login', passport.authenticate('local-login', {
