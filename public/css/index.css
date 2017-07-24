@@ -114,3 +114,8 @@ body {
     text-align: center;
 }
 
+.portfolio-link > img {
+    width: 250px;
+    height: 100px;
+}
+

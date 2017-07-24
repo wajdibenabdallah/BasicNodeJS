@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <%# EJS Training %>
-    <title>Hello</title>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/index.js"></script>
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="/img/icon_app.ico" type="image/x-icon">
-</head>
-<body>
-<% if (message.length > 0) { %>
-<div class="alert alert-danger alert-dismissable" style="top: 0%">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    <%= message %>
-</div>
-<% } %>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/index.js"></script>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="shortcut icon" href="/img/icon_app.ico" type="image/x-icon">
+
 <div class="container">
+    <% if (message.length > 0) { %>
+    <div class="alert alert-danger alert-dismissable" style="top: 0%">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <%= message %>
+    </div>
+    <% } %>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-login">
@@ -104,5 +96,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>
