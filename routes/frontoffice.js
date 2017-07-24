@@ -22,7 +22,10 @@ module.exports = function (passport) {
     }));
 
     router.get('/profil', isLoggedIn, function (req, res) {
-        res.render('profile');
+        var currentUser = req.user[0].local;
+        res.render('profile',{
+            user : currentUser
+        });
     });
 
     router.get('/logout', function (req, res) {

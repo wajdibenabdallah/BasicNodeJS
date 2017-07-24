@@ -1,6 +1,5 @@
 var express = require('express')
     , path = require('path')
-    , logger = require('morgan')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')
     , passport = require('passport')
@@ -8,6 +7,8 @@ var express = require('express')
     , flash = require('connect-flash')
     , mongoose = require('mongoose')
     , logger = require('morgan');
+
+
 
 // pass passport for configuration
 require('./config/passport')(passport);
@@ -26,15 +27,18 @@ db.once('open', function () {
 });
 
 //Configurations
-var server = express(server);
-server.set('view engine', 'ejs');
-server.engine('ejs', require('express-ejs-extend')); // add this line
-server.use('/', express.static(path.join(__dirname, 'public')));
-server.use(bodyParser.urlencoded({extended: false}));
-//server.use(logger('dev'));
-server.use(bodyParser.json());
-server.use(cookieParser());
-server.use(session({
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.set('view engine', 'ejs');
+app.engine('ejs', require('express-ejs-extend')); // add this line
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}));
+//app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({
     secret: 'fullstack',
     resave: true,
     saveUninitialized: true,
@@ -44,15 +48,17 @@ server.use(session({
     }
 }));
 
-server.use(passport.initialize());
-server.use(passport.session());
-server.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 //Routes
 var routing = require('./routes/frontoffice')(passport);
-server.use('/', routing);
+app.use('/', routing);
 
-server.listen(PORT, function () {
+require('./socketServer')(io);
+
+http.listen(PORT, function () {
     console.log('\n *** Server 1 ***');
     console.log('\t Port : ' + PORT);
     console.log('---------------------------');
