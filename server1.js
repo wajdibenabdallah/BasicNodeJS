@@ -8,8 +8,6 @@ var express = require('express')
     , mongoose = require('mongoose')
     , logger = require('morgan');
 
-
-
 // pass passport for configuration
 require('./config/passport')(passport);
 

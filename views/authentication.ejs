@@ -58,19 +58,19 @@
                               role="form" style="display: none;">
                             <div class="form-group">
                                 <input type="text" name="usernamer" id="username" tabindex="1" class="form-control"
-                                       placeholder="Username" value="">
+                                       placeholder="Username" value="" required>
                             </div>
                             <div class="form-group">
                                 <input type="email" name="emailr" id="email" tabindex="1" class="form-control"
-                                       placeholder="Email Address" value="">
+                                       placeholder="Email Address" value="" required>
                             </div>
                             <div class="form-group">
                                 <input type="password" name="passwordr" id="password" tabindex="2"
-                                       class="form-control" placeholder="Password">
+                                       class="form-control" placeholder="Password" required>
                             </div>
                             <div class="form-group">
                                 <input type="password" name="confirmpassword" id="confirmpassword" tabindex="2"
-                                       class="form-control" placeholder="Confirm Password">
+                                       class="form-control" placeholder="Confirm Password" required>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -88,3 +88,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var message = '<%= message %>';
+        var page = '<%= page %>';
+        if (message) {
+            $('html, body').animate({
+                scrollTop: $("#authentication").offset().top
+            }, -1);
+            if (page == 'register') {
+                $("#register-form").show();
+                $("#login-form").hide();
+            }
+        }
+    });
+</script>

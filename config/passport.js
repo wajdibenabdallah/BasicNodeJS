@@ -9,7 +9,7 @@ module.exports = function (passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function (user, done) {
-        User.find({'local.username': user.local.username }, function (err, user) {
+        User.find({'local.username': user.local.username}, function (err, user) {
             done(err, user);
         });
     });
@@ -25,13 +25,18 @@ module.exports = function (passport) {
             // we are checking to see if the user trying to login already exists
             try {
                 User.findOne({'local.username': username}, function (err, user) {
+                    var Message = {
+                        page: 'register',
+                        message: null
+                    }
                     // if there are any errors, return the error
                     if (err) {
                         return done(err);
                     }
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('message', 'That username is already taken.'));
+                        Message.message = 'That username is already taken.';
+                        return done(null, false, req.flash('message', Message));
                     } else {
                         var data = {
                             username: username,
@@ -41,8 +46,10 @@ module.exports = function (passport) {
                         }
 
                         var testForm = validateData(data);
-                        if (testForm !== true)
-                            return done(null, false, req.flash('message', testForm));
+                        if (testForm !== true) {
+                            Message.message = testForm;
+                            return done(null, false, req.flash('message', Message));
+                        }
 
                         // if there is no user with that email
                         // create the user
@@ -75,15 +82,23 @@ module.exports = function (passport) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             User.findOne({'local.username': username}, function (err, user) {
+                var Message = {
+                    page: 'login',
+                    message: null
+                }
                 // if there are any errors, return the error before anything else
                 if (err)
                     return done(err);
                 // if no user is found, return the message
-                if (!user)
-                    return done(null, false, req.flash('message', 'No user found.'));
+                if (!user) {
+                    Message.message = 'No user found.';
+                    return done(null, false, req.flash('message', Message));
+                }
                 // if the user is found but the password is wrong
-                if (!user.validPassword(password))
-                    return done(null, false, req.flash('message', 'Wrong password.'));
+                if (!user.validPassword(password)) {
+                    Message.message = 'Wrong password.';
+                    return done(null, false, req.flash('message', Message));
+                }
                 // all is well, return successful user
                 return done(null, user);
             });

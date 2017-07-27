@@ -523,15 +523,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    //get ejs params
-    $(document).ready(function () {
-        var message = '<%= message %>';
-        if (message) {
-            $('html, body').animate({
-                scrollTop: $("#authentication").offset().top
-            }, -1);
-        }
-    });
-</script>
