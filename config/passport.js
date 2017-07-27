@@ -108,9 +108,9 @@ module.exports = function (passport) {
 
 function validateData(data) {
 
-    //Rule 1 : username length > 5
-    if (data.username.length < 6)
-        return 'Username invalid : At least 6 characters';
+    //Rule 1 : username length > 4
+    if (data.username.length < 5)
+        return 'Username invalid : At least 5 characters';
     //Rule 2 : password length > 5
     else if (data.pass1.length < 6)
         return 'Password invalid : At least 6 characters'

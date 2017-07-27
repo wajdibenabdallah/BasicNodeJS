@@ -5,7 +5,6 @@ module.exports = function (passport) {
 
     router.get('/', function (req, res) {
         var reqFlash = req.flash('message');
-        console.log(typeof reqFlash);
         var response = reqFlash[0];
         var message, page;
         if (response) {

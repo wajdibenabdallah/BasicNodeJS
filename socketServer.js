@@ -5,7 +5,7 @@ module.exports = function (io) {
         socket.on('connectUser', function (data) {
             console.log('User connected => ' + data.username + " / ID => " + socket.id);
             users[socket.id] = data.username;
-            socket.broadcast.emit("userconnected",data.username+" is connected");
+            socket.broadcast.emit("userconnected", data.username + " is connected");
         });
         socket.on('disconnect', function () {
             console.log('User disconnected => ' + users[socket.id] + " / ID => " + socket.id);
@@ -13,8 +13,9 @@ module.exports = function (io) {
 
         //-------------------------------------------------------------------------------------------------------------
 
-        socket.on('receive', function () {
-            //broadcast
+        socket.on('say', function (data) {
+            console.log("\n\t" + data.username + " : " + data.text);
+            socket.broadcast.emit('send', data);
         })
 
     });

@@ -190,7 +190,7 @@ a{
     box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
 }
 .msg p {
-    font-size: 0.8rem;
+    font-size: 12.8px;
     margin: 0 0 0.2rem 0;
     color: #777;
 }
@@ -331,4 +331,9 @@ input.textarea {
 }
 .emojis:active {
     opacity: 0.9;
+}
+
+.username{
+    font-size: large;
+    font-family: cursive;
 }

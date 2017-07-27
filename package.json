@@ -13,7 +13,7 @@
     "express-ejs-extend": "0.0.1",
     "express-session": "^1.15.4",
     "method-override": "^1.0.2",
-    "mongoose": "^4.10.8",
+    "mongoose": "4.10.8",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
     "passport": "^0.1.17",
